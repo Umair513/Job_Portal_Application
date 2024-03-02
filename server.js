@@ -1,4 +1,5 @@
 import express from "express"
+import "express-async-errors"
 import dotenv from "dotenv"
 import connectDB from "./config/db.js"
 import testRoutes from "./routes/testRoutes.js"
