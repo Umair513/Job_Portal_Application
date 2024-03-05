@@ -8,6 +8,7 @@ import cors from "cors"
 import morgan from "morgan"
 import errorMiddleware from "./middlewares/errorMiddleware.js"
 import userRoutes from "./routes/userRoutes.js"
+import jobsRoute from "./routes/jobsRoute.js"
 
 dotenv.config()
 
@@ -20,6 +21,7 @@ app.use(morgan("dev"))
 app.use("/api/v1/test",testRoutes)
 app.use("/api/v1/auth", authRoute)
 app.use("/api/v1/user", userRoutes)
+app.use("/api/v1/job", jobsRoute)
 
 app.use(errorMiddleware)
 
