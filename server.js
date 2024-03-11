@@ -12,10 +12,32 @@ import jobsRoute from "./routes/jobsRoute.js"
 import helmet from "helmet"
 import xss from "xss-clean"
 import mongoSanitize from "express-mongo-sanitize"
+import swaggerUi from "swagger-ui-express"
+import swaggerJsDoc from "swagger-jsdoc"
+
 
 dotenv.config()
 
 connectDB()
+
+const options = {
+  definition:{
+    openapi: "3.0.0",
+  info:{
+    title:"Job Portal Application",
+    description:"Node Expressjs Job Portal Application"
+  },
+  servers:[
+    {
+      url:"http://localhost:8080"
+    }
+  ]
+  },
+  apis:["./routes/*.js"]
+}
+
+const spec = swaggerJsDoc(options)
+
 const app = express()
 app.use(express.json())
 app.use(cors())
@@ -27,6 +49,7 @@ app.use("/api/v1/test",testRoutes)
 app.use("/api/v1/auth", authRoute)
 app.use("/api/v1/user", userRoutes)
 app.use("/api/v1/job", jobsRoute)
+app.use("/api-doc",swaggerUi.serve, swaggerUi.setup(spec))
 
 app.use(errorMiddleware)
 
