@@ -11,6 +11,7 @@
   "author": "Umair Ahmed",
   "license": "ISC",
   "dependencies": {
+    "@reduxjs/toolkit": "^2.2.1",
     "bcryptjs": "^2.4.3",
     "colors": "^1.4.0",
     "cors": "^2.8.5",
@@ -25,6 +26,7 @@
     "mongoose": "^8.2.0",
     "morgan": "^1.10.0",
     "nodemon": "^3.1.0",
+    "react-redux": "^9.1.0",
     "swagger-doc": "^0.3.0",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.0",
