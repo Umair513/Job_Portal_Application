@@ -7,6 +7,8 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { UseSelector } from "react-redux";
 import Spinner from "../components/shared/Spinner";
+import {toast} from "react-toastify"
+import "react-toastify/dist/ReactToastify.css";
 
 const Register = () => {
   const [name, setName] = useState("");
@@ -23,7 +25,7 @@ const Register = () => {
     e.preventDefault();
     try {
       if (!name || !email || !password) {
-        alert("Please provide all fields");
+        toast.error("Please provide all fields");
         return;
       }
       dispatch(showLoading());
@@ -35,63 +37,69 @@ const Register = () => {
       });
       dispatch(hideLoading());
       if (data.success) {
-        alert("User Registered Successfully");
-        navigate("/dashboard");
+        toast.success("User Registered Successfully");
+        navigate("/login");
       }
     } catch (error) {
       dispatch(hideLoading());
-      alert("Invalid form details");
+      toast.error("Invalid form details");
       console.log(error);
     }
   };
 
-  return <>{loading ? (<Spinner></Spinner>) : (
-    <div className="form-container">
-        <h1 className="mb-5">Registration Form</h1>
-        <form className="card p-5" onSubmit={handleSubmit}>
-          <InputForm
-            htmlFor="name"
-            labelText="Name"
-            type="text"
-            value={name}
-            name="name"
-            handleChange={(e) => setName(e.target.value)}
-          ></InputForm>
-          <InputForm
-            htmlFor="lastName"
-            labelText="Last Name"
-            type="text"
-            value={lastName}
-            name="lastName"
-            handleChange={(e) => setLastName(e.target.value)}
-          ></InputForm>
-          <InputForm
-            htmlFor="email"
-            labelText="Email"
-            type="email"
-            value={email}
-            name="email"
-            handleChange={(e) => setEmail(e.target.value)}
-          ></InputForm>
-          <InputForm
-            htmlFor="password"
-            labelText="Password"
-            type="password"
-            value={password}
-            name="password"
-            handleChange={(e) => setPassword(e.target.value)}
-          ></InputForm>
-          <div className="d-flex justify-space-between">
-            <p>
-              Already Registered? <Link to="/login">Login</Link>
-            </p>
-          </div>
-          <button type="submit" className="btn btn-primary">
-            Register
-          </button>
-        </form>
-      </div>
-  ) }</>;
+  return (
+    <>
+      {loading ? (
+        <Spinner></Spinner>
+      ) : (
+        <div className="form-container">
+          <h1 className="mb-5">Registration Form</h1>
+          <form className="card p-5" onSubmit={handleSubmit}>
+            <InputForm
+              htmlFor="name"
+              labelText="Name"
+              type="text"
+              value={name}
+              name="name"
+              handleChange={(e) => setName(e.target.value)}
+            ></InputForm>
+            <InputForm
+              htmlFor="lastName"
+              labelText="Last Name"
+              type="text"
+              value={lastName}
+              name="lastName"
+              handleChange={(e) => setLastName(e.target.value)}
+            ></InputForm>
+            <InputForm
+              htmlFor="email"
+              labelText="Email"
+              type="email"
+              value={email}
+              name="email"
+              handleChange={(e) => setEmail(e.target.value)}
+            ></InputForm>
+            <InputForm
+              htmlFor="password"
+              labelText="Password"
+              type="password"
+              value={password}
+              name="password"
+              handleChange={(e) => setPassword(e.target.value)}
+            ></InputForm>
+            <div className="d-flex justify-space-between">
+              <p>
+                Already Registered? <Link to="/login">Login</Link>
+              </p>
+            </div>
+            <button type="submit" className="btn btn-primary">
+              Register
+            </button>
+          </form>
+        </div>
+      )}
+    </>
+  );
 };
 
 export default Register;
